@@ -1,35 +1,26 @@
-# RJ
+# SJ1
 en
-conf t
-hos SS1
-no ip domain lookup
-ip domain name singapore17.com
+conf t 
+int r F0/1-2 
+channel-group 1 mode active 
 
-service password
+int r F0/5-6 
+channel-group 3 mode active
 
-banner motd #Unauthorized access prohibited#
-
-line cons 0
-exec-timeout 10 0
-exit
-line vty 0 15
-exec-timeout 10 0
-exit
-
-do copy run start
-
-
-
-# RS
+# SJ2
 en
-conf t
-hos RS
-no ip domain lookup
-ip domain name singapore17.com
+conf t 
+int r F0/1-2 
+channel-group 1 mode active
 
-# RN
+int r F0/3-4 
+channel-group 2 mode active 
+
+# SJ3
 en
-conf t
-hos RN
-no ip domain lookup
-ip domain name nusantara17.com
+conf t 
+int r F0/3-4 
+channel-group 2 mode active
+
+int r F0/5-6 
+channel-group 3 mode active 
