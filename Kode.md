@@ -16,7 +16,6 @@ default-router 192.168.13.1
 ip dhcp pool VLAN40
 network 192.168.13.128 255.255.255.192
 default-router 192.168.13.129
-
 # RS
 en
 conf t
@@ -92,4 +91,31 @@ sw t a v 1,10,20,30,40
 int p 3
 sw m t
 sw t a v 1,10,20,30,40
+
+
+# VLAN Server-Client
+## S1
+en 
+conf t
+vtp mode server
+vtp domain JK17
+vlan 10
+name Engineer
+vlan 20
+name Finance
+vlan 30
+name Telco
+vlan 40
+name R&D
+
+
+## S2 & S3
+en
+conf t
+vtp mode client
+vtp domain JK17
+
 # Access
+int f0/_angka_
+sw m a
+sw a v _vlan_
