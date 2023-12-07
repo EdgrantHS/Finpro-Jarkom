@@ -55,3 +55,41 @@ ip dhcp pool VLAN40
 network 192.168.15.192 255.255.255.224
 default-router 192.168.15.193
 
+
+# intervlan
+## S1
+en 
+conf t
+int p 1
+sw m t
+sw t a v 1,10,20,30,40
+int p 3
+sw m t
+sw t a v 1,10,20,30,40
+
+int g0/1
+sw m t
+sw t a v 1,10,20,30,40
+
+
+## S2
+en 
+conf t
+int p 1
+sw m t
+sw t a v 1,10,20,30,40
+int p 2
+sw m t
+sw t a v 1,10,20,30,40
+
+
+## S3
+en 
+conf t
+int p 2
+sw m t
+sw t a v 1,10,20,30,40
+int p 3
+sw m t
+sw t a v 1,10,20,30,40
+# Access
