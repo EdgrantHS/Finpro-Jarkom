@@ -1,60 +1,3 @@
-# RJ
-en
-conf t
-ip dhcp pool VLAN10
-network 192.168.10.0 255.255.254.0
-default-router 192.168.10.1
-
-ip dhcp pool VLAN20
-network 192.168.12.0 255.255.255.0
-default-router 192.168.12.1
-
-ip dhcp pool VLAN30
-network 192.168.13.0 255.255.255.128
-default-router 192.168.13.1
-
-ip dhcp pool VLAN40
-network 192.168.13.128 255.255.255.192
-default-router 192.168.13.129
-# RS
-en
-conf t
-ip dhcp pool VLAN10
-network 192.168.13.192 255.255.255.128
-default-router 192.168.13.193
-
-ip dhcp pool VLAN20
-network 192.168.14.64 255.255.255.192
-default-router 192.168.14.65
-
-ip dhcp pool VLAN30
-network 192.168.14.128 255.255.255.192
-default-router 192.168.14.129
-
-ip dhcp pool VLAN40
-network 192.168.14.192 255.255.255.192
-default-router 192.168.14.193
-
-# RN
-en
-conf t
-ip dhcp pool VLAN10
-network 192.168.15.0 255.255.255.192
-default-router 192.168.15.1
-
-ip dhcp pool VLAN20
-network 192.168.15.64 255.255.255.192
-default-router 192.168.15.65
-
-ip dhcp pool VLAN30
-network 192.168.15.128 255.255.255.192
-default-router 192.168.15.129
-
-ip dhcp pool VLAN40
-network 192.168.15.192 255.255.255.224
-default-router 192.168.15.193
-
-
 # intervlan
 ## S1
 en 
@@ -119,3 +62,131 @@ vtp domain JK17
 int f0/_angka_
 sw m a
 sw a v _vlan_
+
+# DHCP
+## RJ
+en
+conf t
+ip dhcp pool VLAN10
+ network 192.168.10.0 255.255.254.0
+ default-router 192.168.10.1
+ dns-server 192.168.14.62
+ domain-name jakarta17.com
+
+ip dhcp pool VLAN20
+ network 192.168.12.0 255.255.255.0
+ default-router 192.168.12.1
+ dns-server 192.168.14.62
+ domain-name jakarta17.com
+
+ip dhcp pool VLAN30
+ network 192.168.13.0 255.255.255.128
+ default-router 192.168.13.1
+ dns-server 192.168.14.62
+ domain-name jakarta17.com
+
+ip dhcp pool VLAN40
+ network 192.168.13.128 255.255.255.192
+ default-router 192.168.13.129
+ dns-server 192.168.14.62
+ domain-name jakarta17.com
+
+ 
+## RS
+en
+conf t
+ip dhcp excluded-address 192.168.14.62
+
+ip dhcp pool VLAN10
+ network 192.168.13.192 255.255.255.128
+ default-router 192.168.13.193
+ dns-server 192.168.14.62
+ domain-name singapore17.com
+
+ip dhcp pool VLAN20
+ network 192.168.14.64 255.255.255.192
+ default-router 192.168.14.65
+ dns-server 192.168.14.62
+ domain-name singapore17.com
+
+ip dhcp pool VLAN30
+ network 192.168.14.128 255.255.255.192
+ default-router 192.168.14.129
+ dns-server 192.168.14.62
+ domain-name singapore17.com
+
+ip dhcp pool VLAN40
+ network 192.168.14.192 255.255.255.192
+ default-router 192.168.14.193
+ dns-server 192.168.14.62
+ domain-name singapore17.com
+
+## RN
+en
+conf t
+ip dhcp pool VLAN10
+ network 192.168.15.0 255.255.255.192
+ default-router 192.168.15.1
+ dns-server 192.168.14.62
+ domain-name nusantara17.com
+
+ip dhcp pool VLAN20
+ network 192.168.15.64 255.255.255.192
+ default-router 192.168.15.65
+ dns-server 192.168.14.62
+ domain-name nusantara17.com
+
+ip dhcp pool VLAN30
+ network 192.168.15.128 255.255.255.192
+ default-router 192.168.15.129
+ dns-server 192.168.14.62
+ domain-name nusantara17.com
+
+ip dhcp pool VLAN40
+ network 192.168.15.192 255.255.255.224
+ default-router 192.168.15.193
+ dns-server 192.168.14.62
+ domain-name nusantara17.com
+
+# Routeing RIP
+## RJ
+en
+conf t
+router rip
+ version 2
+ no auto-summary
+ network 192.168.10.0
+ network 192.168.12.0
+ network 192.168.13.0
+ network 192.168.13.128
+ network 192.168.15.224
+ network 192.168.15.232
+exit
+
+## RS
+en
+conf t
+router rip
+ version 2
+ no auto-summary
+ network 192.168.13.192
+ network 192.168.14.64
+ network 192.168.14.128
+ network 192.168.14.192
+ network 192.168.15.232
+ network 192.168.15.228 
+exit
+
+## RN
+en
+conf t
+router rip
+ version 2
+ no auto-summary
+ network 192.168.15.0
+ network 192.168.15.64
+ network 192.168.15.128
+ network 192.168.15.192
+ network 192.168.15.224
+ network 192.168.15.228
+exit
